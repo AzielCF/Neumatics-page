@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Suspense } from 'react';
 import { useSearchParams } from "next/navigation";
 
 import { Footer } from "@/components/Footer";
@@ -128,180 +129,182 @@ export default function SearchResults() {
   };
 
   return (
-    <SearchLayout cart={cart} setCart={setCart}>
-      <div className="flex flex-col min-h-screen bg-gray-100 ">
-        <Carousel
-          className="w-full"
-          opts={{ loop: true }}
-          plugins={[Autoplay({ delay: 5000 })]}
-        >
-          <CarouselContent>
-            {banners.map((banner) => (
-              <CarouselItem key={banner.id}>
-                <img
-                  src={banner.image}
-                  alt={banner.alt}
-                  className="md:w-full h-250 md:h-[450px] object-cover"
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
-        <main className="container mx-auto px-8 py-16">
-          <h1 className="text-3xl font-bold mb-4">{brand ? 'Resultados de búsqueda' : 'Productos'} </h1>
-          {brand && (
-            <p className="mb-8">
-              Recomendados para: {brand} - {type}
-            </p>
-          )}
-
-
-          <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            <Input
-              placeholder="Buscar productos..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <Select onValueChange={setSelectedBrand}>
-              <SelectTrigger>
-                <SelectValue placeholder="Marca" />
-              </SelectTrigger>
-              <SelectContent>
-                {brands.map((brand) => (
-                  <SelectItem key={brand} value={brand}>
-                    {brand}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Select onValueChange={setSelectedCategory}>
-              <SelectTrigger>
-                <SelectValue placeholder="Categoría" />
-              </SelectTrigger>
-              <SelectContent>
-                {categories.map((category) => (
-                  <SelectItem key={category} value={category}>
-                    {category}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Select onValueChange={setSelectedType}>
-              <SelectTrigger>
-                <SelectValue placeholder="Tipo" />
-              </SelectTrigger>
-              <SelectContent>
-                {types.map((type) => (
-                  <SelectItem key={type} value={type}>
-                    {type}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <div>
-              <p className="mb-2">
-                Rango de precio: ${priceRange[0]} - ${priceRange[1]}
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchLayout cart={cart} setCart={setCart}>
+        <div className="flex flex-col min-h-screen bg-gray-100 ">
+          <Carousel
+            className="w-full"
+            opts={{ loop: true }}
+            plugins={[Autoplay({ delay: 5000 })]}
+          >
+            <CarouselContent>
+              {banners.map((banner) => (
+                <CarouselItem key={banner.id}>
+                  <img
+                    src={banner.image}
+                    alt={banner.alt}
+                    className="md:w-full h-250 md:h-[450px] object-cover"
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+          <main className="container mx-auto px-8 py-16">
+            <h1 className="text-3xl font-bold mb-4">{brand ? 'Resultados de búsqueda' : 'Productos'} </h1>
+            {brand && (
+              <p className="mb-8">
+                Recomendados para: {brand} - {type}
               </p>
-              <Slider
-                min={0}
-                max={300}
-                step={10}
-                value={priceRange}
-                onValueChange={setPriceRange}
+            )}
+
+
+            <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+              <Input
+                placeholder="Buscar productos..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
+              <Select onValueChange={setSelectedBrand}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Marca" />
+                </SelectTrigger>
+                <SelectContent>
+                  {brands.map((brand) => (
+                    <SelectItem key={brand} value={brand}>
+                      {brand}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Select onValueChange={setSelectedCategory}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Categoría" />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map((category) => (
+                    <SelectItem key={category} value={category}>
+                      {category}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Select onValueChange={setSelectedType}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Tipo" />
+                </SelectTrigger>
+                <SelectContent>
+                  {types.map((type) => (
+                    <SelectItem key={type} value={type}>
+                      {type}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <div>
+                <p className="mb-2">
+                  Rango de precio: ${priceRange[0]} - ${priceRange[1]}
+                </p>
+                <Slider
+                  min={0}
+                  max={300}
+                  step={10}
+                  value={priceRange}
+                  onValueChange={setPriceRange}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {filteredProducts.map((product) => (
-              <Card
-                key={product.id}
-                onClick={() => handleProductClick(product)}
-                className="cursor-pointer bg-white rounded-lg shadow-lg hover:shadow-lg hover:shadow-red-700 transition-shadow duration-300 ease-in-out relative"
-              >
-                <CardContent className="p-5 flex flex-col h-full">
-                  {/* Imagen del producto */}
-                  <div className="relative">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-56 object-cover rounded-t-lg mb-6"
-                    />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+              {filteredProducts.map((product) => (
+                <Card
+                  key={product.id}
+                  onClick={() => handleProductClick(product)}
+                  className="cursor-pointer bg-white rounded-lg shadow-lg hover:shadow-lg hover:shadow-red-700 transition-shadow duration-300 ease-in-out relative"
+                >
+                  <CardContent className="p-5 flex flex-col h-full">
+                    {/* Imagen del producto */}
+                    <div className="relative">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-56 object-cover rounded-t-lg mb-6"
+                      />
 
-                    {/* Tag (si existe) */}
-                    {product.tag && (
-                      <span className="absolute top-2 left-0 text-xs font-semibold text-gray-600 bg-gray-200 px-2 py-1 rounded-full">
-                        {product.tag}
-                      </span>
-                    )}
+                      {/* Tag (si existe) */}
+                      {product.tag && (
+                        <span className="absolute top-2 left-0 text-xs font-semibold text-gray-600 bg-gray-200 px-2 py-1 rounded-full">
+                          {product.tag}
+                        </span>
+                      )}
 
-                    {/* Porcentaje de descuento más predominante */}
-                    {product.onSale && (
-                      <span className="absolute top-2 right-0 text-xs font-bold text-white bg-red-600 px-2 py-1 rounded-full shadow-lg">
-                        -{product.onSale.discountPercentage}%
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Nombre del producto */}
-                  <h2 className="text-lg font-semibold text-gray-800 mb-2">
-                    {product.name.length > 40
-                      ? `${product.name.slice(0, 40)}...`
-                      : product.name}
-                  </h2>
-
-                  {/* Marca del producto */}
-
-                  <p className="text-gray-800 text-md mb-4">{product.brand}</p>
-
-                  {/* Precio y descuento */}
-                  <div className="mt-auto flex justify-between items-center">
-                    <div>
-                      {product.onSale ? (
-                        <>
-                          <p className="text-red-600 font-bold text-lg">
-                            $
-                            {(
-                              product.price *
-                              (1 - product.onSale.discountPercentage / 100)
-                            ).toFixed(2)}
-                          </p>
-                          <p className="text-gray-500 text-sm line-through">
-                            ${product.price.toFixed(2)}
-                          </p>
-                        </>
-                      ) : (
-                        <p className="text-gray-800 font-bold text-lg">
-                          ${product.price.toFixed(2)}
-                        </p>
+                      {/* Porcentaje de descuento más predominante */}
+                      {product.onSale && (
+                        <span className="absolute top-2 right-0 text-xs font-bold text-white bg-red-600 px-2 py-1 rounded-full shadow-lg">
+                          -{product.onSale.discountPercentage}%
+                        </span>
                       )}
                     </div>
 
-                    {/* Botón de añadir al carrito */}
-                    <Button
-                      className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md transition-all duration-200 ease-in-out"
-                      onClick={(e) => {
-                        e.stopPropagation(); // Evitar que el clic del botón afecte a la tarjeta
-                        addToCart(product);
-                      }}
-                    >
-                      Añadir al carrito
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </main>
-        <Footer />
-        {selectedProduct && (
-          <ProductDetail
-            addToCart={addToCart}
-            product={selectedProduct}
-            onClose={() => setSelectedProduct(null)}
-          />
-        )}
-      </div>
-    </SearchLayout>
+                    {/* Nombre del producto */}
+                    <h2 className="text-lg font-semibold text-gray-800 mb-2">
+                      {product.name.length > 40
+                        ? `${product.name.slice(0, 40)}...`
+                        : product.name}
+                    </h2>
+
+                    {/* Marca del producto */}
+
+                    <p className="text-gray-800 text-md mb-4">{product.brand}</p>
+
+                    {/* Precio y descuento */}
+                    <div className="mt-auto flex justify-between items-center">
+                      <div>
+                        {product.onSale ? (
+                          <>
+                            <p className="text-red-600 font-bold text-lg">
+                              $
+                              {(
+                                product.price *
+                                (1 - product.onSale.discountPercentage / 100)
+                              ).toFixed(2)}
+                            </p>
+                            <p className="text-gray-500 text-sm line-through">
+                              ${product.price.toFixed(2)}
+                            </p>
+                          </>
+                        ) : (
+                          <p className="text-gray-800 font-bold text-lg">
+                            ${product.price.toFixed(2)}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Botón de añadir al carrito */}
+                      <Button
+                        className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md transition-all duration-200 ease-in-out"
+                        onClick={(e) => {
+                          e.stopPropagation(); // Evitar que el clic del botón afecte a la tarjeta
+                          addToCart(product);
+                        }}
+                      >
+                        Añadir al carrito
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </main>
+          <Footer />
+          {selectedProduct && (
+            <ProductDetail
+              addToCart={addToCart}
+              product={selectedProduct}
+              onClose={() => setSelectedProduct(null)}
+            />
+          )}
+        </div>
+      </SearchLayout>
+    </Suspense>
   );
 }

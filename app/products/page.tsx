@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Suspense } from 'react';
 import { useSearchParams } from "next/navigation";
 
 import { Footer } from "@/components/Footer";
@@ -72,7 +71,7 @@ const banners = [
   },
 ];
 
-export default function SearchResults() {
+export default function Products() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [searchTerm, setSearchTerm] = useState("");
@@ -129,7 +128,6 @@ export default function SearchResults() {
   };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
       <SearchLayout cart={cart} setCart={setCart}>
         <div className="flex flex-col min-h-screen bg-gray-100 ">
           <Carousel
@@ -305,6 +303,5 @@ export default function SearchResults() {
           )}
         </div>
       </SearchLayout>
-    </Suspense>
   );
 }

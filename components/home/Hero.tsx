@@ -18,7 +18,7 @@ export function Hero() {
 
   const handleSearch = () => {
     if (selectedBrand && selectedType) {
-      router.push(`/search-results?brand=${selectedBrand}&type=${selectedType}`)
+      router.push(`/products?brand=${selectedBrand}&type=${selectedType}`)
     }
   }
 

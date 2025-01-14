@@ -32,7 +32,7 @@ export function Navbar() {
           ProfessionalTires
         </span>
         <nav className="hidden md:flex space-x-8">
-          <a href="/search-results" className="cursor-pointer text-white hover:text-red-400 transition-colors">Productos</a>
+          <a href="/products" className="cursor-pointer text-white hover:text-red-400 transition-colors">Productos</a>
           <a href="#" className="text-white hover:text-red-400 transition-colors">Servicios</a>
           <a href="#" className="text-white hover:text-red-400 transition-colors">Sobre Nosotros</a>
           <a href="#" className="text-white hover:text-red-400 transition-colors">Contacto</a>
@@ -53,8 +53,7 @@ export function Navbar() {
             className="md:hidden fixed top-20 left-0 right-0 bg-black bg-opacity-90 z-40"
           >
             <nav className="flex flex-col items-center py-4">
-              <a href="#" className="py-2 text-white hover:text-red-400 transition-colors">Inicio</a>
-              <a href="#" className="py-2 text-white hover:text-red-400 transition-colors">Productos</a>
+              <a href="/products" className="py-2 text-white hover:text-red-400 transition-colors">Productos</a>
               <a href="#" className="py-2 text-white hover:text-red-400 transition-colors">Servicios</a>
               <a href="#" className="py-2 text-white hover:text-red-400 transition-colors">Sobre Nosotros</a>
               <a href="#" className="py-2 text-white hover:text-red-400 transition-colors">Contacto</a>

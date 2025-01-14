@@ -31,7 +31,7 @@ export function Navbar({ totalCartItems, isSidebarOpen, toggleCartSidebar }) {
       } h-20`}
     >
       <div className="container mx-auto px-8 h-full flex justify-between items-center">
-        <span className="text-2xl font-bold text-black">ProfessionalTires</span>
+        <a href='/' className="text-2xl font-bold text-black">ProfessionalTires</a>
         <nav className="hidden md:flex space-x-8">
           <a
             href="#"

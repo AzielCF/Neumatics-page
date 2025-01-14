@@ -28,9 +28,9 @@ export function Navbar() {
   return (
     <header className={`fixed top-0 left-auto w-full box-border z-50 transition-all duration-300 ${isScrolled ? 'bg-black/35 backdrop-blur-md' : 'bg-transparent'} h-20`}>
       <div className="container mx-auto px-8 h-full flex justify-between items-center">
-        <span className="text-2xl font-bold text-white">
+        <a href='/' className="text-2xl font-bold text-white">
           ProfessionalTires
-        </span>
+        </a>
         <nav className="hidden md:flex space-x-8">
           <a href="/products" className="cursor-pointer text-white hover:text-red-400 transition-colors">Productos</a>
           <a href="#" className="text-white hover:text-red-400 transition-colors">Servicios</a>

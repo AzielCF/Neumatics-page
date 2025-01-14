@@ -1,5 +1,4 @@
 'use client';
-import { Suspense } from 'react';
 import { Navbar } from "@/components/search/Navbar";
 import { useState } from "react";
 import { CartSidebar } from "@/components/search/CartSidebar";
@@ -25,9 +24,7 @@ const SearchLayout = ({
     <div className="flex min-h-screen flex-col bg-gray-100">
       <Navbar totalCartItems={totalCartItems}  isSidebarOpen={isSidebarOpen} toggleCartSidebar={toggleSidebar}/>
       <main className="flex-grow w-full md:w-[calc(100%-280px)]">
-        <Suspense fallback={<div>Loading...</div>}>
-          {children} {/* Esto es donde se renderizarán las páginas */}
-        </Suspense>
+        {children} {/* Esto es donde se renderizarán las páginas */}
       </main>
 
       <CartSidebar

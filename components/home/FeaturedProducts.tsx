@@ -33,7 +33,7 @@ export function FeaturedProducts() {
                   <img src={product.image} alt={product.name} className="w-full h-52 object-cover mb-4 rounded" />
                   <h4 className="text-xl font-semibold mb-2">{product.name}</h4>
                   <p className="text-red-600 font-bold mb-4">{product.price}</p>
-                  <Button onClick={() => { router.push(`/search-results?product=${product.name}`)}} className="w-full bg-red-600 hover:bg-red-700 text-white">
+                  <Button onClick={() => { router.push(`/products?product=${product.name}`)}} className="w-full bg-red-600 hover:bg-red-700 text-white">
                     Ver Detalles
                   </Button>
                 </CardContent>

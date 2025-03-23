@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import VideoComponent from './VideoComponent'
 
 const carBrands = ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'Nissan', 'Volkswagen', 'BMW', 'Mercedes-Benz']
 const carTypes = ['Sedán', 'SUV', 'Hatchback', 'Pickup', 'Deportivo', 'Furgoneta']
@@ -24,19 +25,7 @@ export function Hero() {
 
   return (
     <section className="relative pt-32 md:pt-40 pb-16 md:pb-32 overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-red-800 to-black opacity-80"></div>
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="https://video.wixstatic.com/video/c837a6_92774e1a278046cf94437a8275f664a5/1080p/mp4/file.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-red-500/30 via-red-500/10 to-transparent"></div>
-      </div>
+      <VideoComponent />
       <div className="container relative z-10 mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-12">
           <motion.h1
